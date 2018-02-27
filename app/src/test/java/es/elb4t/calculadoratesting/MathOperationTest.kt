@@ -2,7 +2,7 @@ package es.elb4t.calculadoratesting
 
 import junitparams.JUnitParamsRunner
 import junitparams.Parameters
-import org.junit.Assert.assertEquals
+import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import java.util.*
@@ -13,23 +13,27 @@ import java.util.*
  */
 @RunWith(JUnitParamsRunner::class)
 class MathOperationTest {
+    private var mathOperation: MathOperation? = null
 
-    @Parameters(method = "getValidAdditionInput")
-    @Test
-    fun additionShouldReturnExpectedValueWhenOperandsAreValid(operand1: Double, operand2: Double, expectedValue: Double) {
-        //Arrange
-        val mathOperation = MathOperation()
-        //Act
-        var result = mathOperation.addition(operand1, operand2)
-        //Assert
-        assertEquals(String.format("Resultado %1s ha de ser igual a %2s", result, expectedValue), expectedValue, result, 0.0)
+    @Before
+    fun setUp() {
+        mathOperation = MathOperation()
     }
 
-    private fun getValidAdditionInput(): Collection<Array<Any>> {
+    @Parameters(method = "getInvalidInput")
+    @Test(expected = OperationException::class)
+    fun additionShouldReturnExpectedValueWhenOperandsAreValid(operand1: Double, operand2: Double){
+        //Act
+        var result = mathOperation!!.addition(operand1, operand2)
+    }
+
+    private fun getInvalidInput(): Collection<Array<Any>> {
         return Arrays.asList(
-                arrayOf<Any>(1, 1, 2),
-                arrayOf<Any>(2, -2, 0),
-                arrayOf<Any>(-3.5, -2.7, -6.2)
+                arrayOf(12, Double.MAX_VALUE),
+                arrayOf(Double.POSITIVE_INFINITY, 1),
+                arrayOf<Any>(-12.3, Double.NEGATIVE_INFINITY),
+                arrayOf(Double.NaN, 12),
+                arrayOf(Math.pow(2.0, 1024.0), -1)
         )
     }
 }
