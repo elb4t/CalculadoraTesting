@@ -9,6 +9,21 @@ class MathOperation {
         throwsIfValuesAreInvalid(operand1, operand2)
         return operand1 + operand2
     }
+    @Throws(OperationException::class)
+    fun resta(operand1: Double, operand2: Double): Double {
+        throwsIfValuesAreInvalid(operand1, operand2)
+        return operand1 - operand2
+    }
+    @Throws(OperationException::class)
+    fun multiplicacion(operand1: Double, operand2: Double): Double {
+        throwsIfValuesAreInvalid(operand1, operand2)
+        return operand1 * operand2
+    }
+    @Throws(OperationException::class)
+    fun division(operand1: Double, operand2: Double): Double {
+        throwsIfValuesAreInvalid(operand1, operand2)
+        return operand1 / operand2
+    }
 
     @Throws(OperationException::class)
     private fun throwsIfValuesAreInvalid(vararg values: Double) {
@@ -19,4 +34,36 @@ class MathOperation {
         }
     }
 
+    fun exponentiation(base:Double, exponent:Double):Double{
+        var result = 1.0
+        var exponent = exponent
+        val expoNegative = exponent < 0
+        if (expoNegative)
+            exponent = -exponent
+        while (exponent > 0) {
+            result *= base
+            exponent--
+        }
+        return if (expoNegative) 1 / result else result
+    }
+
+    fun squareRoot(radicand: Double): Double {
+        var aux: Double
+        var squareRoot = radicand / 2
+        do {
+            aux = squareRoot
+            squareRoot = (aux + radicand / aux) / 2
+        } while (aux != squareRoot)
+        return squareRoot
+    }
+
+    fun factorial(operand: Double): Double {
+        var operand = operand
+        var result = 1.0
+        while (operand > 0) {
+            result *= operand
+            operand--
+        }
+        return result
+    }
 }
