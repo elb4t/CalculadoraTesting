@@ -11,13 +11,13 @@ class MathOperation {
     }
 
     @Throws(OperationException::class)
-    fun resta(operand1: Double, operand2: Double): Double {
+    fun subtraction(operand1: Double, operand2: Double): Double {
         throwsIfValuesAreInvalid(operand1, operand2)
         return operand1 - operand2
     }
 
     @Throws(OperationException::class)
-    fun multiplicacion(operand1: Double, operand2: Double): Double {
+    fun multiplication(operand1: Double, operand2: Double): Double {
         throwsIfValuesAreInvalid(operand1, operand2)
         return operand1 * operand2
     }
@@ -45,7 +45,7 @@ class MathOperation {
         if (expoNegative)
             exponent = -exponent
         while (!exponent.equals(0)) {
-            result = multiplicacion(result, base)
+            result = multiplication(result, base)
             exponent--
             throwsIfValuesAreInvalid(result);
         }
@@ -66,7 +66,7 @@ class MathOperation {
         var operand = operand
         var result = 1.0
         while (operand > 0) {
-            result = multiplicacion(result, operand)
+            result = multiplication(result, operand)
             operand--
         }
         return result
