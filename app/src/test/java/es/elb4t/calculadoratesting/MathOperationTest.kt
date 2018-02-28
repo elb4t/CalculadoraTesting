@@ -27,7 +27,7 @@ class MathOperationTest {
         var result = mathOperation!!.addition(operand1, operand2)
     }
 
-    private fun getInvalidInput(): Collection<Array<Any>> {
+    private fun getInvalidInputu (): Collection<Array<Any>> {
         return Arrays.asList(
                 arrayOf(12, Double.MAX_VALUE),
                 arrayOf(Double.POSITIVE_INFINITY, 1),
