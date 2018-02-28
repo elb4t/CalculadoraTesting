@@ -33,16 +33,17 @@ class MathOperation {
                 throw OperationException()
         }
     }
-
+    @Throws(OperationException::class)
     fun exponentiation(base:Double, exponent:Double):Double{
         var result = 1.0
         var exponent = exponent
         val expoNegative = exponent < 0
         if (expoNegative)
             exponent = -exponent
-        while (exponent > 0) {
-            result *= base
+        while (!exponent.equals(0)) {
+            result = multiplicacion(result, base)
             exponent--
+            throwsIfValuesAreInvalid(result);
         }
         return if (expoNegative) 1 / result else result
     }

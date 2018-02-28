@@ -10,6 +10,8 @@ import org.junit.runner.RunWith
 import java.util.*
 
 
+
+
 /**
  * Created by eloy on 27/2/18.
  */
@@ -57,6 +59,26 @@ class MathOperationTest {
                 `$`(-3, 3, -27),
                 `$`(2, -2, 0.25),
                 `$`(-3, -5, -0.00411522633)
+        )
+    }
+
+    @Parameters(method = "getInvalidExponentiationInput")
+    @Test(expected = OperationException::class, timeout = 100)
+    fun exponentiationShouldThrowWhenInputIsInvalid(
+            base: Double, exponent: Double) {
+        mathOperation!!.exponentiation(base, exponent)
+    }
+
+    private fun getInvalidExponentiationInput(): Array<Any> {
+        return `$`(
+                `$`(java.lang.Double.NEGATIVE_INFINITY, 2),
+                `$`(-3, java.lang.Double.POSITIVE_INFINITY),
+                `$`(java.lang.Double.NaN, -1),
+                `$`(2, java.lang.Double.MAX_VALUE),
+                `$`(2, 1024),
+                `$`(5, 3.3),
+                `$`(-3, -1.2),
+                `$`(1,100000000)
         )
     }
 }
