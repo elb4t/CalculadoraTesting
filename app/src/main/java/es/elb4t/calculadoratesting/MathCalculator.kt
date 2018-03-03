@@ -8,7 +8,9 @@ import java.text.DecimalFormatSymbols
 /**
  * Created by eloy on 28/2/18.
  */
-class MathCalculator() {
+class MathCalculator() : Calculator {
+
+
     companion object {
         val ADDITION = "+"
         val SUBTRACTION = "-"
@@ -38,7 +40,7 @@ class MathCalculator() {
         this.operation = operation
     }
 
-    fun addSymbol(to: String, symbol: String): String {
+    override fun addSymbol(to: String, symbol: String): String {
         var symbol = symbol
         if (isAnOperator(symbol)) {
             symbol = if (isAnUnaryOperator(symbol))
@@ -54,15 +56,15 @@ class MathCalculator() {
         return expression!!.addSymbol(to, symbol)
     }
 
-    fun removeSymbol(from: String): String {
+    override fun removeSymbol(from: String): String {
         return expression!!.removeSymbol(from)
     }
 
     @Throws(OperationException::class, ExpressionException::class)
-    fun calculate(from: String): String {
+    override fun calculate(from: String?): String {
         var from = from
-        from = expression!!.read(from)
-        while (containsParenthesis(from)) {
+        from = expression!!.read(from!!)
+        while (containsParenthesis(from!!)) {
             val parenthesis = getParenthesisExpression(from)
             from = replaceParenthesis(from, resolve(parenthesis))
         }

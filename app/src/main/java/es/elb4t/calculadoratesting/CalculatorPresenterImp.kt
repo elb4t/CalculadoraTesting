@@ -1,5 +1,7 @@
 package es.elb4t.calculadoratesting
 
+import android.util.Log
+
 
 /**
  * Created by eloy on 3/3/18.
@@ -15,7 +17,9 @@ class CalculatorPresenterImp(private var view: CalculatorView?, private var calc
     }
 
     override fun removeSymbol(expression: String) {
-        view!!.showOperations(calculator!!.removeSymbol(expression))
+        if (!expression!!.isEmpty()) {
+            view!!.showOperations(calculator!!.removeSymbol(expression))
+        }
     }
 
     override fun clearScreen() {
@@ -31,6 +35,7 @@ class CalculatorPresenterImp(private var view: CalculatorView?, private var calc
             view!!.showResult(calculator!!.calculate(expression!!))
         } catch (exception: RuntimeException) {
             view!!.showError()
+            Log.e("ERROR:", exception.message)
         }
 
     }
