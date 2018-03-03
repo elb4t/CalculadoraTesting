@@ -53,5 +53,35 @@ class CalculatorPresenterTest {
         verify(mockedView, times(1))!!.showError()
     }
 
+    @Test
+    fun removeSymbolShouldCallShowOperationsWhenInputIsValid() {
+        `when`(mockedCalculator!!.removeSymbol(anyString())).thenReturn("+")
+        presenter!!.removeSymbol(anyString())
+        verify(mockedView, times(1))!!.showOperations(anyString())
+        verify(mockedView, times(0))!!.showError()
+    }
+
+    @Test
+    fun clearScreenShouldCallShowOperations() {
+        presenter!!.clearScreen()
+        verify(mockedView, times(1))!!.showOperations(anyString())
+        verify(mockedView, times(0))!!.showError()
+    }
+
+    @Test
+    fun calculateShouldCallShowOperationsWhenInputIsValid() {
+        `when`(mockedCalculator!!.calculate(anyString())).thenReturn("+")
+        presenter!!.calculate(anyString())
+        verify(mockedView, times(1))!!.showResult(anyString())
+        verify(mockedView, times(0))!!.showError()
+    }
+
+    @Test
+    fun calculateShouldCallShowErrorWhenCalculatorThrowsAnNullPointer() {
+        `when`(mockedCalculator!!.calculate(null)).thenReturn("+")
+        presenter!!.calculate(null)
+        verify(mockedView, times(0))!!.showResult(null)
+        verify(mockedView, times(1))!!.showError()
+    }
 
 }

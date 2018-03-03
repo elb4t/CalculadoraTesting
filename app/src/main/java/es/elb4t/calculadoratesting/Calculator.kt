@@ -7,5 +7,5 @@ package es.elb4t.calculadoratesting
 interface Calculator {
     fun addSymbol(to: String, symbol: String): String
     fun removeSymbol(from: String): String
-    fun calculate(from: String): String
+    fun calculate(from: String?): String
 }

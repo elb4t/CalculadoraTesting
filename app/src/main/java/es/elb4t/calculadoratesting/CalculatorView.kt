@@ -6,6 +6,6 @@ package es.elb4t.calculadoratesting
 interface CalculatorView {
     fun setPresenter(presenter: CalculatorPresenter)
     fun showOperations(operations: String)
-    fun showResult(result: String)
+    fun showResult(result: String?)
     fun showError()
 }
