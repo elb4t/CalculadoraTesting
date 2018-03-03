@@ -142,8 +142,9 @@ class MathCalculator() {
         return to
     }
 
+    @VisibleForTesting
     @Throws(OperationException::class, ExpressionException::class)
-    private fun resolve(from: String): String {
+    fun resolve(from: String): String {
         if (from.isEmpty()) return ""
         var result = 0.0
         var unaryOperator = NONE
