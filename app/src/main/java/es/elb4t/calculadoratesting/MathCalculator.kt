@@ -8,7 +8,7 @@ import java.text.DecimalFormatSymbols
 /**
  * Created by eloy on 28/2/18.
  */
-class MathCalculator {
+class MathCalculator() {
     companion object {
         val ADDITION = "+"
         val SUBTRACTION = "-"
@@ -27,9 +27,13 @@ class MathCalculator {
     }
 
     var expression: Expression? = null
-    private var operation: MathOperation? = null
+    var operation: MathOperation? = null
 
     fun MathCalculator(expression: Expression, operation: MathOperation) {
+        this.expression = expression
+        this.operation = operation
+    }
+    constructor(expression: Expression, operation: MathOperation?) : this() {
         this.expression = expression
         this.operation = operation
     }
