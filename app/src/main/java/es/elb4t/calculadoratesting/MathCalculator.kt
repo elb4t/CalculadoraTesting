@@ -1,5 +1,6 @@
 package es.elb4t.calculadoratesting
 
+import android.support.annotation.VisibleForTesting
 import java.text.DecimalFormat
 import java.text.DecimalFormatSymbols
 
@@ -64,15 +65,18 @@ class MathCalculator {
         return resolve(from)
     }
 
-    private fun containsParenthesis(expression: String): Boolean {
+    @VisibleForTesting
+    fun containsParenthesis(expression: String): Boolean {
         return expression!!.contains(PARENTHESIS_START)
     }
 
-    private fun getParenthesisExpression(from: String): String {
+    @VisibleForTesting
+    fun getParenthesisExpression(from: String): String {
         return removeParenthesis(getRightmostParenthesis(from))
     }
 
-    private fun getRightmostParenthesis(from: String): String {
+    @VisibleForTesting
+    fun getRightmostParenthesis(from: String): String {
         val START_INDEX = getParenthesisStartIndex(from)
         val END_INDEX = getParenthesisEndIndex(from)
         return from.substring(START_INDEX, END_INDEX)

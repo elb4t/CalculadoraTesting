@@ -9,5 +9,6 @@ import org.junit.runners.Suite
  */
 @RunWith(Suite::class)
 @Suite.SuiteClasses(MathExpressionTest::class,
-                    MathOperationTest::class)
+                    MathOperationTest::class,
+                    MathCalculatorTest::class)
 class MathSuite
