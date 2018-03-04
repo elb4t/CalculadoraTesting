@@ -1,7 +1,12 @@
 package es.elb4t.calculadoratesting;
 
+import android.support.test.espresso.UiController;
+import android.support.test.espresso.ViewAction;
 import android.support.test.rule.ActivityTestRule;
+import android.view.View;
+import android.widget.TextView;
 
+import org.hamcrest.Matcher;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -12,8 +17,13 @@ import junitparams.Parameters;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
+import static android.support.test.espresso.matcher.ViewMatchers.isAssignableFrom;
+import static android.support.test.espresso.matcher.ViewMatchers.isCompletelyDisplayed;
+import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
+import static android.support.test.espresso.matcher.ViewMatchers.withParent;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
+import static org.hamcrest.core.AllOf.allOf;
 
 /**
  * Created by eloy on 4/3/18.
@@ -25,7 +35,8 @@ public class MathCalculatorActivityTest {
     @Rule
     public ActivityTestRule<MainActivity> activityRule = new ActivityTestRule<>(MainActivity.class);
 
-    @Test @Parameters(method = "getValidOperandButtonData")
+    @Test
+    @Parameters(method = "getValidOperandButtonData")
     public void onClickButtonShouldAddExpectedValueToOperationsViews(int buttonId, String expectedValue) {
         //Click en el botón
         onView(withId(buttonId)).perform(click());
@@ -57,5 +68,42 @@ public class MathCalculatorActivityTest {
                 new Object[]{R.id.bt_parenthesis_start, " ("},
                 new Object[]{R.id.bt_parenthesis_end, ") "}
         };
+    }
+
+    public static ViewAction setText(final String value) {
+        return new ViewAction() {
+            @SuppressWarnings("unchecked")
+            @Override
+            public Matcher<View> getConstraints() {
+                return allOf(isDisplayed(), isAssignableFrom(TextView.class));
+            }
+
+            @Override
+            public void perform(UiController uiController, View view) {
+                ((TextView) view).setText(value);
+            }
+
+            @Override
+            public String getDescription() {
+                return "replace text";
+            }
+        };
+    }
+
+    @Test
+    @Parameters(method = "getValidOperationsData")
+    public void onOperationsViewChangedShouldUpdateResultsView(
+            String operations, String result) {
+        onView(withId(R.id.operations)).perform(setText(operations));
+        onView(allOf(withParent(withId(R.id.result)), isCompletelyDisplayed()))
+                .check(matches(withText(result)));
+    }
+
+    private static Object[] getValidOperationsData() {
+        return new Object[]{
+                new Object[]{"2+2", "4"},
+                new Object[]{"sqrt(9)", "3"},
+                new Object[]{"5/2", "2.5"},
+                new Object[]{"3+(4x3)", "15"}};
     }
 }
