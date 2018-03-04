@@ -90,7 +90,7 @@ public class MathCalculatorActivityTest {
         };
     }
 
-    @Test
+    @Test(timeout = 100)
     @Parameters(method = "getValidOperationsData")
     public void onOperationsViewChangedShouldUpdateResultsView(
             String operations, String result) {
@@ -102,8 +102,43 @@ public class MathCalculatorActivityTest {
     private static Object[] getValidOperationsData() {
         return new Object[]{
                 new Object[]{"2+2", "4"},
-                new Object[]{"sqrt(9)", "3"},
                 new Object[]{"5/2", "2.5"},
                 new Object[]{"3+(4x3)", "15"}};
+    }
+
+    @Test
+    @Parameters(method = "getValidRemoveLastButtonData")
+    public void removeLastButtonViewChangedShouldUpdateResultsView(
+            String operations, String result) {
+        onView(withId(R.id.operations)).perform(setText(operations));
+        onView(withId(R.id.bt_remove_last)).perform(click());
+        onView(allOf(withParent(withId(R.id.result)), isCompletelyDisplayed()))
+                .check(matches(withText(result)));
+    }
+
+    private static Object[] getValidRemoveLastButtonData() {
+        return new Object[]{
+                new Object[]{"2+2", "2"},
+                new Object[]{"4-2+1", "2"},
+                new Object[]{"5/2", "5"},
+                new Object[]{"3+(4x3)", "15"}};
+    }
+
+    @Test
+    @Parameters(method = "getValidClearButtonData")
+    public void clearButtonViewChangedShouldUpdateResultsView(
+            String operations, String result) {
+        onView(withId(R.id.operations)).perform(setText(operations));
+        onView(withId(R.id.bt_clear)).perform(click());
+        onView(allOf(withParent(withId(R.id.result)), isCompletelyDisplayed()))
+                .check(matches(withText(result)));
+    }
+
+    private static Object[] getValidClearButtonData() {
+        return new Object[]{
+                new Object[]{"2+2", ""},
+                new Object[]{"4-2+1", ""},
+                new Object[]{"5/2", ""},
+                new Object[]{"3+(4x3)", ""}};
     }
 }
