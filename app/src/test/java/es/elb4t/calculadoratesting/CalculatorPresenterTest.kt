@@ -55,7 +55,7 @@ class CalculatorPresenterTest {
 
     @Test
     fun removeSymbolShouldCallShowOperationsWhenInputIsValid() {
-        `when`(mockedCalculator!!.removeSymbol(anyString())).thenReturn("+")
+        `when`(mockedCalculator!!.removeSymbol(anyString())).thenReturn("")
         presenter!!.removeSymbol(anyString())
         verify(mockedView, times(1))!!.showOperations(anyString())
         verify(mockedView, times(0))!!.showError()

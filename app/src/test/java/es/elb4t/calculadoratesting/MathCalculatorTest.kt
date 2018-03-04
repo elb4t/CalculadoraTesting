@@ -142,7 +142,7 @@ class MathCalculatorTest {
         verify(mockedExpression, times(0))!!.addSymbol(anyString(), anyString())
     }
 
-    @Test(timeout = 100)
+    @Test()
     @Parameters(method = "resolveData")
     fun resolveShouldReturnExpectedExpression(from: String, tokens: Array<String>, expected: String) {
         val operation = MathOperation()

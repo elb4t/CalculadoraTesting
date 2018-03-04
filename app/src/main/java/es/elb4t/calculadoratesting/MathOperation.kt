@@ -44,14 +44,15 @@ open class MathOperation {
         val expoNegative = exponent < 0
         if (expoNegative)
             exponent = -exponent
-        while (!exponent.equals(0)) {
+        while (exponent != 0.0) {
             result = multiplication(result, base)
             exponent--
-            throwsIfValuesAreInvalid(result);
+            throwsIfValuesAreInvalid(result)
         }
         return if (expoNegative) 1 / result else result
     }
 
+    @Throws(OperationException::class)
     fun squareRoot(radicand: Double): Double {
         var aux: Double
         var squareRoot = radicand / 2
@@ -62,6 +63,7 @@ open class MathOperation {
         return squareRoot
     }
 
+    @Throws(OperationException::class)
     fun factorial(operand: Double): Double {
         var operand = operand
         var result = 1.0

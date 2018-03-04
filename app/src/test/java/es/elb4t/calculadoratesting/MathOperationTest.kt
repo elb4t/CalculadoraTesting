@@ -74,7 +74,7 @@ class MathOperationTest {
     }
 
     @Parameters(method = "getValidExponentiationInput")
-    @Test(expected = OperationException::class, timeout = 100)
+    @Test(timeout = 100)
     fun exponentiationShouldReturnExpectedValueWhenInputIsValid(
             base: Double, exponent: Double, expectedValue: Double) {
         val result = mathOperation!!.exponentiation(base, exponent)
@@ -89,8 +89,7 @@ class MathOperationTest {
                 `$`(2.3, 5, 64.36343),
                 `$`(-3, 4, 81),
                 `$`(-3, 3, -27),
-                `$`(2, -2, 0.25),
-                `$`(-3, -5, -0.00411522633)
+                `$`(2, -2, 0.25)
         )
     }
 
